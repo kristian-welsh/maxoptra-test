@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class RegisterCardResponse {
-    private String bankName;
-    private String cardNumber;
-    private String expiryDate;
+    private boolean successful;
+    private UnvalidatedCard card;
 }

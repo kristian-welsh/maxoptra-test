@@ -1,6 +1,7 @@
 package com.maxoptra.kwelsh;
 
 import com.jayway.restassured.RestAssured;
+import com.maxoptra.kwelsh.model.RegisterCardRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,15 +11,14 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
-public class HelloControllerTest {
+public class CardControllerIntegrationTest {
     @Value("${local.server.port}")
-    int port;
+    private int port;
 
     @BeforeEach
     public void setUp() {
@@ -26,17 +26,12 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void testHello() {
-        when().get("/").then()
-                .body(is("Hello World!"));
-    }
-
-    @Test
-    public void testCalc() {
-        given().param("left", 100)
-                .param("right", 200)
-                .get("/calc")
+    public void registerCardSuccessfully() {
+        RegisterCardRequest requestBody = new RegisterCardRequest("amex", "37", "01/01/3030");
+        given().body(requestBody)
+                .header("Content-Type", "application/json; charset=utf8")
+                .post("/api/registerCard")
                 .then()
-                .body(is("300"));
+                .body(is("{\"successful\":true,\"card\":{\"bankName\":\"amex\",\"cardNumber\":\"37\",\"expiryDate\":\"01/01/3030\"}}"));
     }
 }
