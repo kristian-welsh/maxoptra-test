@@ -10,41 +10,8 @@
         <label>Card number:<input type="text" id="cardNumber"/></label><br/>
         <label>Expiry Date:<input type="text" id="expiryDate"/></label><br/>
         <input type="button" value="Submit" id="submitButton"/><br/>
+        <script src="js/register-card.js"></script>
     </form>
     <br/><br/>
-<script>
-    async function submitCard() {
-        console.log("submitting card");
-        let bankName = document.getElementById("bankName").value;
-        let cardNumber = document.getElementById("cardNumber").value;
-        let expiryDate = document.getElementById("expiryDate").value;
-
-        //let response = postRequest('api/registerCard', bankName, cardNumber, expiryDate);
-        let response = await fetch('api/registerCard', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'bankName': bankName,
-                'cardNumber': cardNumber,
-                'expiryDate': expiryDate,
-            }),
-        });
-        let responseBody = await response.json();
-        console.log(response.status);
-        if(response.status === 200) {
-            alert("card " + responseBody.cardNumber + " submitted successfully");
-        } else {
-            alert("card " + cardNumber + " submission failed");
-        }
-    }
-
-
-    let submit = document.getElementById("submitButton");
-    submit.addEventListener('click', submitCard);
-
-    //function postRequest(route, a, b, c, d) {}
-</script>
 </body>
 </html>
