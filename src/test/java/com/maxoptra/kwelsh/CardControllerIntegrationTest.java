@@ -34,4 +34,14 @@ public class CardControllerIntegrationTest {
                 .then()
                 .body(is("{\"successful\":true,\"card\":{\"bankName\":\"amex\",\"cardNumber\":\"37\",\"expiryDate\":\"01/01/3030\"}}"));
     }
+
+    @Test
+    public void registerCardUnsuccessfully() {
+        RegisterCardRequest requestBody = new RegisterCardRequest("amex", "thirtyseven", "01/01/3030");
+        given().body(requestBody)
+                .header("Content-Type", "application/json; charset=utf8")
+                .post("/api/registerCard")
+                .then()
+                .body(is("{\"successful\":false,\"error\":{\"errorType\":\"ValidationError\",\"invalidField\":\"cardNumber\",\"fieldValue\":\"thirtyseven\",\"errorMesssage\":\"field cardNumber must be numeric\"}}"));
+    }
 }

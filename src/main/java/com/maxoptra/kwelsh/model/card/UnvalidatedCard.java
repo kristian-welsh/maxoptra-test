@@ -1,8 +1,8 @@
-package com.maxoptra.kwelsh.model;
+package com.maxoptra.kwelsh.model.card;
 
+import com.maxoptra.kwelsh.model.RegisterCardRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Data
 @AllArgsConstructor
