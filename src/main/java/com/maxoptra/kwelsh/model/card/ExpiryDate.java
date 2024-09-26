@@ -2,10 +2,10 @@ package com.maxoptra.kwelsh.model.card;
 
 import com.maxoptra.kwelsh.model.Wrapper;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
-public class ExpiryDate extends Wrapper<ZonedDateTime> {
-    public ExpiryDate(ZonedDateTime value) {
+public class ExpiryDate extends Wrapper<LocalDate> {
+    public ExpiryDate(LocalDate value) {
         super(value);
     }
 }

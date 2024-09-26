@@ -19,11 +19,11 @@ class CardValidationTest {
 
     @Test
     public void successCase() {
-        UnvalidatedCard card = new UnvalidatedCard("American Express", "3700-0000-0000-0000", "dec 3030");
+        UnvalidatedCard card = new UnvalidatedCard("American Express", "3700-0000-0000-0000", "01/12/3030");
         Either<CardValidationError, ValidCard> result = cardValidaton.validate(card);
         assertTrue(result.isRight());
         assertEquals("American Express", result.get().getBankName().getValue());
         assertEquals("3700-0000-0000-0000", result.get().getCardNumber().getValue());
-        assertEquals("dec 3030", result.get().getExpiryDate().getValue().toString());
+        assertEquals("3030-12-01", result.get().getExpiryDate().getValue().toString());
     }
 }

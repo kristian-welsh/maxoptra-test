@@ -2,6 +2,7 @@ package com.maxoptra.kwelsh;
 
 import com.maxoptra.kwelsh.model.*;
 import com.maxoptra.kwelsh.model.card.UnvalidatedCard;
+import com.maxoptra.kwelsh.model.errors.CardError;
 import com.maxoptra.kwelsh.model.errors.CardValidationError;
 import com.maxoptra.kwelsh.validation.CardValidation;
 import com.maxoptra.kwelsh.validation.model.ValidCard;
@@ -16,18 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CardController {
-    private final CardValidation cardValidation;
+    private final CardRegistration cardRegistration;
 
-    public CardController(@Autowired CardValidation cardValidation) {
-        this.cardValidation = cardValidation;
+    public CardController(@Autowired CardRegistration cardRegistration) {
+        this.cardRegistration = cardRegistration;
     }
 
     @PostMapping("api/registerCard")
     public ResponseEntity<RegisterCardResponse> registerCard(@RequestBody RegisterCardRequest request) {
-        UnvalidatedCard card = UnvalidatedCard.fromRequest(request);
-        Either<CardValidationError, ValidCard> validationResult = cardValidation.validate(card);
-        //todo: store card
-
-        return new ResponseEntity<>(new RegisterCardSuccessResponse(card), HttpStatus.OK);
+        Either<? extends CardError, ValidCard> result = cardRegistration.register(UnvalidatedCard.fromRequest(request));
+        return new ResponseEntity<>(new RegisterCardSuccessResponse(result.get()), HttpStatus.OK);
     }
 }

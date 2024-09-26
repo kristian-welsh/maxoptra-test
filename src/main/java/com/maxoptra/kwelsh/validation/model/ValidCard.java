@@ -7,11 +7,15 @@ import com.maxoptra.kwelsh.model.card.UnvalidatedCard;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
 public class ValidCard {
+    private static final String DATE_FORMAT = "dd/MM/yyyy";
+
     private BankName bankName;
     private CardNumber cardNumber;
     private ExpiryDate expiryDate;
@@ -20,6 +24,7 @@ public class ValidCard {
         return new ValidCard(
                 new BankName(card.getBankName()),
                 new CardNumber(card.getCardNumber()),
-                new ExpiryDate(ZonedDateTime.now()));// todo: interpret string from request/unvalidated card
+                new ExpiryDate(
+                        LocalDate.parse(card.getExpiryDate(), DateTimeFormatter.ofPattern(DATE_FORMAT))));
     }
 }
