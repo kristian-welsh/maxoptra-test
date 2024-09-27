@@ -5,9 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 public class CardValidationError extends CardError {
-    String invalidField;
+    String fieldName;
     String fieldValue;
-    public CardValidationError(String invalidFieldName, String fieldValue, String errorMessage) {
+    public CardValidationError(String fieldName, String fieldValue, String errorMessage) {
         super(CardValidationError.class, errorMessage);
+        this.fieldName = fieldName;
+        this.fieldValue = fieldValue;
     }
 }

@@ -1,4 +1,4 @@
-package com.maxoptra.kwelsh.model;
+package com.maxoptra.kwelsh.model.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

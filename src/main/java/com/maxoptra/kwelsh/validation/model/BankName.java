@@ -1,4 +1,4 @@
-package com.maxoptra.kwelsh.model.card;
+package com.maxoptra.kwelsh.validation.model;
 
 import com.maxoptra.kwelsh.model.Wrapper;
 
